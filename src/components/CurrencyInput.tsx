@@ -1,6 +1,6 @@
 import { InputHTMLAttributes, forwardRef, useState } from "react";
 import { NumericFormat } from "react-number-format";
-import { Input } from "./input";
+import { Input } from "./ui/input";
 
 export type CurrencyInputProps = InputHTMLAttributes<HTMLInputElement>;
 

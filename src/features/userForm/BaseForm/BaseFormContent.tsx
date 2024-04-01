@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { CurrencyInput } from "@/components/ui/currencyInput";
+import { CurrencyInput } from "@/components/CurrencyInput";
 import {
   Form,
   FormControl,
