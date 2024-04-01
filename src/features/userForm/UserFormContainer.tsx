@@ -2,7 +2,7 @@ import { Separator } from "@/components/ui/separator";
 import { BaseForm } from "./BaseForm";
 import { Header } from "./Header";
 import { SavingsSection } from "./savings/SavingsSection";
-import { LoansSection } from "./loans.tsx/LoansSection";
+import { LoansSection } from "./loans/LoansSection";
 
 export const UserFormContainer = () => {
   return (

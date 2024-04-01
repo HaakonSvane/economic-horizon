@@ -46,6 +46,8 @@ export const useStore = create<Store>()(
         set({
           loans: get().loans.filter((loan) => loan.id !== id),
         }),
+
+      clearAllLoans: () => set({ loans: [] }),
     }),
     {
       name: "store",

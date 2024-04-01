@@ -12,6 +12,7 @@ export type Store = {
   loans: Loan[];
   addLoan: (loan: AddLoanPayload) => void;
   removeLoan: (id: string) => void;
+  clearAllLoans: () => void;
 
   investments: Investment[];
   addFund: (fund: AddFundPayload) => void;
