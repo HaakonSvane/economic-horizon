@@ -17,10 +17,10 @@ import { BaseFormSchema } from "./types";
 import { useStore } from "@/lib/store";
 
 export type BaseFormContentProps = {
-  onSubmit: (data: BaseFormSchema) => void;
+  onValidSubmit: (data: BaseFormSchema) => void;
 };
 
-export const BaseFormContent = ({ onSubmit }: BaseFormContentProps) => {
+export const BaseFormContent = ({ onValidSubmit }: BaseFormContentProps) => {
   const baseInfo = useStore((state) => state.baseInfo);
   const form = useForm<
     EmptyFormFields<BaseFormSchema>,
@@ -42,7 +42,7 @@ export const BaseFormContent = ({ onSubmit }: BaseFormContentProps) => {
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(onValidSubmit)}
         className="grid grid-cols-2 gap-x-4 gap-y-6"
       >
         <FormField

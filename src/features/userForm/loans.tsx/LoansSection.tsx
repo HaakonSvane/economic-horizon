@@ -12,11 +12,20 @@ import { useStore } from "@/lib/store";
 import { CirclePlus, Trash } from "lucide-react";
 import { useState } from "react";
 import { LoanForm } from "./LoanForm";
+import { LoanFormSchema } from "./types";
 
 export const LoansSection = () => {
   const loans = useStore((state) => state.loans);
+  const addLoanToStore = useStore((store) => store.addLoan);
   const [isAddingNewLoan, setIsAddingNewLoan] = useState<boolean>(false);
 
+  const addLoan = (loanForm: LoanFormSchema) => {
+    setIsAddingNewLoan(false);
+    addLoanToStore({
+      ...loanForm,
+      termDate: loanForm.termDate.toISOString(),
+    });
+  };
   return (
     <DrawerDialog open={isAddingNewLoan} onOpenChange={setIsAddingNewLoan}>
       <div className="flex grow flex-col gap-y-2">
@@ -54,7 +63,7 @@ export const LoansSection = () => {
             Fyll ut informasjonen på denne siden for å legge til et nytt lån.
           </DrawerDialogDescription>
         </DrawerDialogHeader>
-        <LoanForm />
+        <LoanForm onValidSubmit={addLoan} />
       </DrawerDialogContent>
     </DrawerDialog>
   );

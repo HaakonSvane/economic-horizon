@@ -5,14 +5,16 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export type EmptyFormFields<T extends object> = {
-  [P in keyof T]: T[P] extends object
-    ? EmptyFormFields<T[P]>
-    : T[P] extends []
-      ? []
-      : T[P] extends number
-        ? number | ""
-        : T[P] extends string
-          ? string | ""
-          : T[P];
-};
+export type EmptyFormFields<T extends object> = T extends Date
+  ? Date | null
+  : {
+      [P in keyof T]: T[P] extends object
+        ? EmptyFormFields<T[P]>
+        : T[P] extends []
+          ? []
+          : T[P] extends number
+            ? number | ""
+            : T[P] extends string
+              ? string | ""
+              : T[P];
+    };

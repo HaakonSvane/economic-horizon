@@ -29,7 +29,7 @@ export const BaseForm = () => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <BaseFormContent onSubmit={onSubmit} />
+        <BaseFormContent onValidSubmit={onSubmit} />
       </CardContent>
     </Card>
   );
