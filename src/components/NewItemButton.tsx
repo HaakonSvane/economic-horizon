@@ -13,7 +13,7 @@ export const NewItemButton = forwardRef<HTMLButtonElement, NewItemButtonProps>(
         {...rest}
         ref={ref}
         className={cn(
-          "flex flex-row justify-center items-center h-24 text-lg font-medium text-muted-foreground rounded-lg border p-3 transition-all hover:bg-accent",
+          "flex flex-row justify-center items-center gap-x-2 h-24 text-lg font-medium text-muted-foreground rounded-lg border p-3 transition-all hover:bg-accent",
           className
         )}
       >
