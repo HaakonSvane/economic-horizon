@@ -12,5 +12,7 @@ export type EmptyFormFields<T extends object> = {
       ? []
       : T[P] extends number
         ? number | ""
-        : T[P];
+        : T[P] extends string
+          ? string | ""
+          : T[P];
 };

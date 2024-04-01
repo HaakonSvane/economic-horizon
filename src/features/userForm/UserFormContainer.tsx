@@ -12,8 +12,8 @@ export const UserFormContainer = () => {
         <Separator className="mt-2" />
       </div>
       <BaseForm />
-      <SavingsSection />
       <LoansSection />
+      <SavingsSection />
     </div>
   );
 };

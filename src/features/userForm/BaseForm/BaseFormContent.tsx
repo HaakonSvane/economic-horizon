@@ -52,11 +52,7 @@ export const BaseFormContent = ({ onSubmit }: BaseFormContentProps) => {
             <FormItem>
               <FormLabel>Årslønn</FormLabel>
               <FormControl>
-                <CurrencyInput
-                  type="number"
-                  {...field}
-                  placeholder="Total årslønn..."
-                />
+                <CurrencyInput {...field} placeholder="Total årslønn..." />
               </FormControl>
               <FormDescription>
                 Den totale årslønnen din før skatt
@@ -72,11 +68,7 @@ export const BaseFormContent = ({ onSubmit }: BaseFormContentProps) => {
             <FormItem>
               <FormLabel>Skatt</FormLabel>
               <FormControl>
-                <CurrencyInput
-                  type="number"
-                  {...field}
-                  placeholder="Total skatt..."
-                />
+                <CurrencyInput {...field} placeholder="Total skatt..." />
               </FormControl>
               <FormDescription>Din totale skatt for året</FormDescription>
               <FormMessage />

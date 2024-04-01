@@ -1,15 +1,16 @@
 export type PaymentPlanKeyFrame = {
-    date: string;
-    interest: number;
-    principal: number;
-}
+  date: string;
+  interest: number;
+  principal: number;
+};
 export type PaymentPlan = PaymentPlanKeyFrame[];
 
 export type Loan = {
-    id: string;
-    type: "car" | "house" | "student";
-    amountLeft: number;
-    yearsLeft: number;
-    interestRate: number;
-    paymentPlan: "fixedRate" | PaymentPlan;
-}
+  id: string;
+  name?: string;
+  type: "car" | "house" | "student" | "other";
+  amountLeft: number;
+  lastPaymentDate: number;
+  interestRate: number;
+  paymentPlan: "fixedRate" | PaymentPlan;
+};

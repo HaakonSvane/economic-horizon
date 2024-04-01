@@ -35,7 +35,7 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
       //     suffix=" NOK"
       //     onValueChange={(numericProps) => setValue(numericProps.value ?? "")}
       //   />
-      <Input ref={ref} {...props} />
+      <Input type="number" ref={ref} {...props} />
     );
   }
 );
