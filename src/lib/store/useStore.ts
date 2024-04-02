@@ -12,29 +12,28 @@ export const useStore = create<Store>()(
       },
       setBaseInfo: (baseInfo) => set({ baseInfo }),
 
-      investments: [],
+      savings: [],
       addFund: (fundPayload) =>
         set({
-          investments: [
-            ...get().investments,
+          savings: [
+            ...get().savings,
             { ...fundPayload, id: nanoid(4), type: "fund" },
           ],
         }),
 
       addSavingsAccount: (savingsAccountPayload) =>
         set({
-          investments: [
-            ...get().investments,
+          savings: [
+            ...get().savings,
             { ...savingsAccountPayload, id: nanoid(4), type: "savingsAccount" },
           ],
         }),
 
-      removeInvestment: (id) =>
+      removeSaving: (id) =>
         set({
-          investments: get().investments.filter(
-            (investment) => investment.id !== id
-          ),
+          savings: get().savings.filter((investment) => investment.id !== id),
         }),
+      clearAllSavings: () => set({ savings: [] }),
 
       loans: [],
       addLoan: (loanPayload) =>

@@ -36,6 +36,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { LoanTypeDisplay } from "./LoanTypeDisplay";
 import { loanSchema } from "./loanSchema";
 import { LoanFormSchema } from "./types";
+import { PercentageInput } from "@/components/PercentageInput";
 
 export type LoanFormProps = {
   onValidSubmit: (data: LoanFormSchema) => void;
@@ -173,12 +174,7 @@ export const LoanForm = ({ onValidSubmit }: LoanFormProps) => {
             <FormItem>
               <FormLabel>Effektiv rente (%)</FormLabel>
               <FormControl>
-                <Input
-                  type="number"
-                  lang="nb-no"
-                  {...field}
-                  placeholder="Rente..."
-                />
+                <PercentageInput {...field} placeholder="Rente..." />
               </FormControl>
               <FormMessage />
             </FormItem>

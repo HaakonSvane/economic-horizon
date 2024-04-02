@@ -1,2 +1,2 @@
 export * from "./loan";
-export * from "./investment";
+export * from "./savings";

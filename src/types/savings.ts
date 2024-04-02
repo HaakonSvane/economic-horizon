@@ -1,19 +1,20 @@
-type InvestmentBase = {
+type SavingBase = {
   id: string;
   name: string;
   amount: number;
+  investedAmount: number;
   ratePeriod: "yearly" | "monthly";
   monthlyContribution: number;
 };
 
-export type Fund = InvestmentBase & {
+export type Fund = SavingBase & {
   type: "fund";
   projectedInterestRate: number;
 };
 
-export type SavingsAccount = InvestmentBase & {
+export type SavingsAccount = SavingBase & {
   type: "savingsAccount";
   interestRate: number;
 };
 
-export type Investment = Fund | SavingsAccount;
+export type Saving = Fund | SavingsAccount;

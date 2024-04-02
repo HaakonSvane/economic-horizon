@@ -1,13 +1,15 @@
+import {
+  badNumberFormatError,
+  invalidPercentageError,
+  positiveNumberError,
+  requiredError,
+} from "@/lib/constants";
 import { z } from "zod";
-
-const badNumberFormatError = "Ikke et gyldig tall";
-const requiredError = "Feltet er påkrevd";
-const positiveNumberError = "Må være et positivt tall";
 
 export const loanSchema = z
   .object({
     type: z.enum(["car", "house", "student", "other"]),
-    name: z.string().min(1, "Feltet er påkrevd").nullable(),
+    name: z.string().min(1, requiredError).nullable(),
     amountLeft: z.coerce
       .number({
         invalid_type_error: badNumberFormatError,
@@ -29,7 +31,7 @@ export const loanSchema = z
         required_error: requiredError,
       })
       .positive(positiveNumberError)
-      .max(100, "Kan ikke være over 100%"),
+      .max(100, invalidPercentageError),
     paymentPlanOption: z.enum(["annuity", "series"]),
   })
   .refine(
@@ -39,6 +41,6 @@ export const loanSchema = z
     },
     {
       path: ["name"],
-      message: "Feltet er påkrevd",
+      message: requiredError,
     }
   );

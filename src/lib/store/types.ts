@@ -1,4 +1,4 @@
-import { Fund, Investment, Loan, SavingsAccount } from "@/types";
+import { Fund, Saving, Loan, SavingsAccount } from "@/types";
 
 type BaseInfo = {
   salary: number;
@@ -14,10 +14,11 @@ export type Store = {
   removeLoan: (id: string) => void;
   clearAllLoans: () => void;
 
-  investments: Investment[];
+  savings: Saving[];
   addFund: (fund: AddFundPayload) => void;
   addSavingsAccount: (savingsAccount: AddSavingsAccountPayload) => void;
-  removeInvestment: (id: string) => void;
+  removeSaving: (id: string) => void;
+  clearAllSavings: () => void;
 };
 
 export type AddLoanPayload = Omit<Loan, "id">;
