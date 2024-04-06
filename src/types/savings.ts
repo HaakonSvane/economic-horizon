@@ -1,10 +1,18 @@
+type Contribution = {
+  amound: number;
+  every: number;
+  period: "days" | "weeks" | "months" | "years";
+  on: string;
+};
+
 type SavingBase = {
   id: string;
   name: string;
-  amount: number;
+  balance: number;
   investedAmount: number;
   ratePeriod: "yearly" | "monthly";
-  monthlyContribution: number;
+  periodicContribution: number;
+  contribution?: Contribution;
 };
 
 export type Fund = SavingBase & {

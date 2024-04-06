@@ -30,6 +30,7 @@ import { useStore } from "@/lib/store";
 import { CirclePlus, Trash } from "lucide-react";
 import { useState } from "react";
 import { FundSchema, SavingsAccountSchema } from "./types";
+import { FundForm } from "./FundForm";
 
 export const SavingsSection = () => {
   const savings = useStore((state) => state.savings);
@@ -119,7 +120,7 @@ export const SavingsSection = () => {
               Fyll ut informasjonen på denne siden for å legge til et nytt fond.
             </DrawerDialogDescription>
           </DrawerDialogHeader>
-          {/* <LoanForm onValidSubmit={addFund} /> */}
+          <FundForm onValidSubmit={() => null} />
         </DrawerDialogContent>
       </DrawerDialog>
 

@@ -48,7 +48,6 @@ export const LoanForm = ({ onValidSubmit }: LoanFormProps) => {
     unknown,
     LoanFormSchema
   >({
-    mode: "onBlur",
     resolver: zodResolver(loanSchema),
     defaultValues: {
       type: "",
@@ -220,37 +219,35 @@ export const LoanForm = ({ onValidSubmit }: LoanFormProps) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Betalingsdato</FormLabel>
-              <FormControl>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant="outline"
-                        className={cn(
-                          "flex grow gap-x-2 text-left font-normal",
-                          !field.value && "text-muted-foreground"
-                        )}
-                      >
-                        {field.value ? (
-                          format(field.value, "PPP")
-                        ) : (
-                          <span>Velg dato for neste betaling</span>
-                        )}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={field.value ?? new Date()}
-                      onSelect={field.onChange}
-                      disabled={(date) => date < new Date()}
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
-              </FormControl>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button
+                      variant="outline"
+                      className={cn(
+                        "flex grow gap-x-2 text-left font-normal",
+                        !field.value && "text-muted-foreground"
+                      )}
+                    >
+                      {field.value ? (
+                        format(field.value, "PPP")
+                      ) : (
+                        <span>Velg dato for neste betaling</span>
+                      )}
+                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={field.value ?? new Date()}
+                    onSelect={field.onChange}
+                    disabled={(date) => date < new Date()}
+                    initialFocus
+                  />
+                </PopoverContent>
+              </Popover>
               <FormMessage />
             </FormItem>
           )}
@@ -258,7 +255,7 @@ export const LoanForm = ({ onValidSubmit }: LoanFormProps) => {
 
         <DrawerDialogFooter>
           <DrawerDialogClose asChild>
-            <Button variant="secondary">Lukk</Button>
+            <Button variant="outline">Lukk</Button>
           </DrawerDialogClose>
           <Button type="submit">Legg til lån</Button>
         </DrawerDialogFooter>
