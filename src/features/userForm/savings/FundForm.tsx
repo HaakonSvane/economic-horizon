@@ -1,5 +1,6 @@
+import { CurrencyInput } from "@/components/CurrencyInput";
+import { PercentageInput } from "@/components/PercentageInput";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import {
   DrawerDialogClose,
   DrawerDialogFooter,
@@ -13,30 +14,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Label } from "@/components/ui/label";
-import { Popover, PopoverContent } from "@/components/ui/popover";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
-import { EmptyFormFields, cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { EmptyFormFields } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PopoverTrigger } from "@radix-ui/react-popover";
-import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { fundSchema } from "./schemas/fundSchema";
 import { FundSchema } from "./types";
-import { savingContributionPeriodToLabel } from "./utils";
-import { Input } from "@/components/ui/input";
-import { CurrencyInput } from "@/components/CurrencyInput";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { PercentageInput } from "@/components/PercentageInput";
 
 export type FundFormProps = {
   onValidSubmit: (data: FundSchema) => void;
@@ -50,57 +34,9 @@ export const FundForm = ({ onValidSubmit }: FundFormProps) => {
       balance: "",
       investedAmount: "",
       ratePeriod: "",
-      contributionPeriod: {
-        every: 1,
-        period: "days",
-        on: null,
-      },
       projectedInterestRate: "",
     },
   });
-
-  const selectedPeriod = useWatch({
-    name: "contributionPeriod.period",
-    control: form.control,
-  });
-
-  const [hasPeriodicContribution, setHasPeriodicContribution] =
-    useState<boolean>(false);
-
-  useEffect(() => {
-    form.resetField("contributionPeriod");
-    if (!hasPeriodicContribution) {
-      return form.setValue("contributionPeriod", null);
-    }
-  }, [hasPeriodicContribution]);
-
-  useEffect(() => {
-    const currentEvery = form.getValues("contributionPeriod.every");
-    if (typeof currentEvery !== "number") return;
-    form.setValue(
-      "contributionPeriod.every",
-      Math.min(possibleEverys.at(-1) ?? currentEvery, currentEvery)
-    );
-  }, [selectedPeriod]);
-
-  const possibleEverys = useMemo(() => {
-    let maxEvery = 0;
-    switch (selectedPeriod) {
-      case "days":
-        maxEvery = 6;
-        break;
-      case "weeks":
-        maxEvery = 4;
-        break;
-      case "months":
-        maxEvery = 11;
-        break;
-      case "years":
-        maxEvery = 3;
-        break;
-    }
-    return Array.from(Array(maxEvery).keys()).map((i) => i + 1);
-  }, [selectedPeriod]);
 
   return (
     <Form {...form}>
@@ -207,125 +143,6 @@ export const FundForm = ({ onValidSubmit }: FundFormProps) => {
               )}
             />
           </div>
-        </div>
-
-        <div className="flex items-center gap-x-2">
-          <Switch
-            id="periodicContribution"
-            checked={hasPeriodicContribution}
-            onCheckedChange={setHasPeriodicContribution}
-          />
-          <Label htmlFor="periodicContribution">Periodisk innskudd</Label>
-        </div>
-
-        <div className="grid grid-cols-6 gap-x-2">
-          <FormField
-            name="contributionPeriod.every"
-            control={form.control}
-            disabled={!hasPeriodicContribution}
-            render={({ field }) => (
-              <FormItem className="grid col-span-1">
-                <FormLabel>Hver</FormLabel>
-                <FormControl>
-                  <Select
-                    disabled={!hasPeriodicContribution}
-                    onValueChange={(value) => field.onChange(Number(value))}
-                    value={field.value.toString()}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder=" " />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {possibleEverys.map((option) => (
-                        <SelectItem key={option} value={option.toString()}>
-                          {option}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            name="contributionPeriod.period"
-            control={form.control}
-            disabled={!hasPeriodicContribution}
-            render={({ field }) => (
-              <FormItem className="grid col-span-2">
-                <FormLabel>Periode</FormLabel>
-                <FormControl>
-                  <Select
-                    disabled={!hasPeriodicContribution}
-                    onValueChange={(value) => field.onChange(value)}
-                    value={field.value}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder=" " />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="days">
-                        {savingContributionPeriodToLabel("days")}
-                      </SelectItem>
-                      <SelectItem value="weeks">
-                        {savingContributionPeriodToLabel("weeks")}
-                      </SelectItem>
-                      <SelectItem value="months">
-                        {savingContributionPeriodToLabel("months")}
-                      </SelectItem>
-                      <SelectItem value="years">
-                        {savingContributionPeriodToLabel("years")}
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            name="contributionPeriod.on"
-            control={form.control}
-            disabled={!hasPeriodicContribution}
-            render={({ field }) => (
-              <FormItem className="grid col-span-3">
-                <FormLabel>Neste innskudd</FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        disabled={!hasPeriodicContribution}
-                        variant="outline"
-                        className={cn(
-                          "flex gap-x-2 text-left font-normal",
-                          !field.value && "text-muted-foreground"
-                        )}
-                      >
-                        {field.value ? (
-                          format(field.value, "PPP")
-                        ) : (
-                          <span>Velg dato for neste betaling</span>
-                        )}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={field.value ?? new Date()}
-                      onSelect={field.onChange}
-                      disabled={(date) => date < new Date()}
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
         </div>
 
         <DrawerDialogFooter>

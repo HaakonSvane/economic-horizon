@@ -28,10 +28,9 @@ export const BaseFormContent = ({ onValidSubmit }: BaseFormContentProps) => {
     BaseFormSchema
   >({
     resolver: zodResolver(baseFormSchema),
-    mode: "onBlur",
     values: {
-      salary: baseInfo.salary,
-      taxes: baseInfo.taxes,
+      salary: baseInfo?.salary ?? "",
+      taxes: baseInfo?.taxes ?? "",
     },
     defaultValues: {
       salary: "",

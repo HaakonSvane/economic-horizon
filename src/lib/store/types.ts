@@ -6,7 +6,7 @@ type BaseInfo = {
 };
 
 export type Store = {
-  baseInfo: BaseInfo;
+  baseInfo: BaseInfo | null;
   setBaseInfo: (baseInfo: BaseInfo) => void;
 
   loans: Loan[];

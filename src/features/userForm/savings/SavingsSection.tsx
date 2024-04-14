@@ -31,6 +31,8 @@ import { CirclePlus, Trash } from "lucide-react";
 import { useState } from "react";
 import { FundSchema, SavingsAccountSchema } from "./types";
 import { FundForm } from "./FundForm";
+import { SavingsAccountForm } from "./SavingsAccountForm";
+import { SavingsGrid } from "./SavingsGrid";
 
 export const SavingsSection = () => {
   const savings = useStore((state) => state.savings);
@@ -86,7 +88,7 @@ export const SavingsSection = () => {
                   <NewItemButton title="Legg til ny sparing" />
                 </DropdownMenuTrigger>
               )}
-              {/* {savings.length > 0 && <LoansGrid />} */}
+              {savings.length > 0 && <SavingsGrid />}
             </div>
 
             <DropdownMenuContent>
@@ -110,7 +112,7 @@ export const SavingsSection = () => {
                 sparekonto.
               </DrawerDialogDescription>
             </DrawerDialogHeader>
-            {/* <LoanForm onValidSubmit={addFund} /> */}
+            <SavingsAccountForm onValidSubmit={addSavingsAccount} />
           </DrawerDialogContent>
         </DrawerDialog>
         <DrawerDialogContent>
@@ -120,7 +122,7 @@ export const SavingsSection = () => {
               Fyll ut informasjonen på denne siden for å legge til et nytt fond.
             </DrawerDialogDescription>
           </DrawerDialogHeader>
-          <FundForm onValidSubmit={() => null} />
+          <FundForm onValidSubmit={addFund} />
         </DrawerDialogContent>
       </DrawerDialog>
 

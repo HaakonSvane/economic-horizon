@@ -6,10 +6,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
 export const useStore = create<Store>()(
   persist(
     (set, get) => ({
-      baseInfo: {
-        salary: 0,
-        taxes: 0,
-      },
+      baseInfo: null,
       setBaseInfo: (baseInfo) => set({ baseInfo }),
 
       savings: [],
