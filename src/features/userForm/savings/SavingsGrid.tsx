@@ -1,13 +1,14 @@
 import { useStore } from "@/lib/store";
 import { SavingsCard } from "./SavingsCard";
+import { CardGrid } from "@/components/CardGrid";
 
 export const SavingsGrid = () => {
   const savings = useStore((state) => state.savings);
   return (
-    <div className="grid grid-cols-2 gap-2">
+    <CardGrid>
       {savings.map((saving) => (
         <SavingsCard saving={saving} key={saving.id} />
       ))}
-    </div>
+    </CardGrid>
   );
 };
