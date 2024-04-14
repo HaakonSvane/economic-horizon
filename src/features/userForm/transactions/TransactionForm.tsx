@@ -1,8 +1,8 @@
 import { EmptyFormFields, cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, useWatch } from "react-hook-form";
-import { depositSchema } from "./depositSchema";
-import { DepositSchema } from "./types";
+import { transactionSchema } from "./transactionSchema";
+import { TransactionSchema } from "./types";
 import { useEffect, useMemo, useState } from "react";
 import {
   Form,
@@ -31,19 +31,23 @@ import { Calendar } from "@/components/ui/calendar";
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { depositIntervalPeriodToLabel } from "./utils";
+import { transactionIntervalPeriodToLabel } from "./utils";
 import {
   DrawerDialogClose,
   DrawerDialogFooter,
 } from "@/components/ui/drawerDialog";
 
-export type DepositFormProps = {
-  onValidSubmit: (data: DepositSchema) => void;
+export type TransactionFormProps = {
+  onValidSubmit: (data: TransactionSchema) => void;
 };
 
-export const DepositForm = ({ onValidSubmit }: DepositFormProps) => {
-  const form = useForm<EmptyFormFields<DepositSchema>, unknown, DepositSchema>({
-    resolver: zodResolver(depositSchema),
+export const TransactionForm = ({ onValidSubmit }: TransactionFormProps) => {
+  const form = useForm<
+    EmptyFormFields<TransactionSchema>,
+    unknown,
+    TransactionSchema
+  >({
+    resolver: zodResolver(transactionSchema),
     defaultValues: {
       name: "",
       amount: "",
@@ -152,16 +156,16 @@ export const DepositForm = ({ onValidSubmit }: DepositFormProps) => {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="days">
-                          {depositIntervalPeriodToLabel("days")}
+                          {transactionIntervalPeriodToLabel("days")}
                         </SelectItem>
                         <SelectItem value="weeks">
-                          {depositIntervalPeriodToLabel("weeks")}
+                          {transactionIntervalPeriodToLabel("weeks")}
                         </SelectItem>
                         <SelectItem value="months">
-                          {depositIntervalPeriodToLabel("months")}
+                          {transactionIntervalPeriodToLabel("months")}
                         </SelectItem>
                         <SelectItem value="years">
-                          {depositIntervalPeriodToLabel("years")}
+                          {transactionIntervalPeriodToLabel("years")}
                         </SelectItem>
                       </SelectContent>
                     </Select>

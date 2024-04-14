@@ -6,7 +6,8 @@ import {
 } from "@/lib/constants";
 import { z } from "zod";
 
-export const depositSchema = z.object({
+export const transactionSchema = z.object({
+  type: z.enum(["withdrawal", "deposit"]),
   name: z
     .string({ required_error: requiredError })
     .min(1, invalidStringLengthError),

@@ -1,4 +1,6 @@
-export type Deposit = {
+export type Transaction = {
+  id: string;
+  type: "withdrawal" | "deposit";
   name: string;
   amount: number;
   interval: {

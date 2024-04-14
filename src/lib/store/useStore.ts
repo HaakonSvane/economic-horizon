@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 import { Store } from "./types";
-import { persist, createJSONStorage } from "zustand/middleware";
 
 export const useStore = create<Store>()(
   persist(
@@ -44,6 +44,22 @@ export const useStore = create<Store>()(
         }),
 
       clearAllLoans: () => set({ loans: [] }),
+
+      transactions: [],
+      addTransaction: (transactionPayload) =>
+        set({
+          transactions: [
+            ...get().transactions,
+            { ...transactionPayload, id: nanoid(4) },
+          ],
+        }),
+      removeTransaction: (id) =>
+        set({
+          transactions: get().transactions.filter(
+            (transaction) => transaction.id !== id
+          ),
+        }),
+      clearAllTransactions: () => set({ transactions: [] }),
     }),
     {
       name: "store",

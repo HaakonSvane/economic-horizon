@@ -1,2 +1,3 @@
 export * from "./loan";
-export * from "./savings";
+export * from "./saving";
+export * from "./transaction";
