@@ -1,18 +1,4 @@
-import { NewItemButton } from "@/components/NewItemButton";
-import { Button } from "@/components/ui/button";
-import {
-  DrawerDialog,
-  DrawerDialogContent,
-  DrawerDialogDescription,
-  DrawerDialogHeader,
-  DrawerDialogTitle,
-  DrawerDialogTrigger,
-} from "@/components/ui/drawerDialog";
-import { useStore } from "@/lib/store";
-import { CirclePlus, Trash } from "lucide-react";
-import { useState } from "react";
-import { LoanForm } from "./LoanForm";
-import { LoanFormSchema } from "./types";
+import { CardSection } from "@/components/CardSection";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,7 +10,19 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import {
+  DrawerDialog,
+  DrawerDialogContent,
+  DrawerDialogDescription,
+  DrawerDialogHeader,
+  DrawerDialogTitle,
+  DrawerDialogTrigger,
+} from "@/components/ui/drawerDialog";
+import { useStore } from "@/lib/store";
+import { useState } from "react";
+import { LoanForm } from "./LoanForm";
 import { LoansGrid } from "./LoansGrid";
+import { LoanFormSchema } from "./types";
 
 export const LoansSection = () => {
   const loans = useStore((state) => state.loans);
@@ -44,29 +42,23 @@ export const LoansSection = () => {
     <AlertDialog>
       <DrawerDialog open={isAddingNewLoan} onOpenChange={setIsAddingNewLoan}>
         <div className="flex grow flex-col gap-y-2">
-          <div className="flex flex-row justify-between">
-            <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-              Lån
-            </h3>
+          <CardSection.Header>
+            <CardSection.Title>Lån</CardSection.Title>
             {loans.length > 0 && (
               <div className="flex items-center gap-x-2">
                 <DrawerDialogTrigger asChild>
-                  <Button variant="outline">
-                    <CirclePlus />
-                  </Button>
+                  <CardSection.AddButton />
                 </DrawerDialogTrigger>
                 <AlertDialogTrigger asChild>
-                  <Button variant="destructive" className="flex gap-x-2">
-                    <Trash />
-                    Slett alle
-                  </Button>
+                  <CardSection.ClearAllButton />
                 </AlertDialogTrigger>
               </div>
             )}
-          </div>
+          </CardSection.Header>
+
           {loans.length === 0 && (
             <DrawerDialogTrigger asChild>
-              <NewItemButton title="Legg til nytt lån" />
+              <CardSection.NewCardButton title="Legg til nytt lån" />
             </DrawerDialogTrigger>
           )}
           {loans.length > 0 && <LoansGrid />}

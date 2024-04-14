@@ -2,11 +2,11 @@ import { cn } from "@/lib/utils";
 import { CirclePlus } from "lucide-react";
 import { HTMLAttributes, forwardRef } from "react";
 
-export type NewItemButtonProps = {
+export type NewCardButtonProps = {
   title: string;
 } & Omit<HTMLAttributes<HTMLButtonElement>, "children">;
 
-export const NewItemButton = forwardRef<HTMLButtonElement, NewItemButtonProps>(
+export const NewCardButton = forwardRef<HTMLButtonElement, NewCardButtonProps>(
   ({ title, className, ...rest }, ref) => {
     return (
       <button
@@ -23,3 +23,5 @@ export const NewItemButton = forwardRef<HTMLButtonElement, NewItemButtonProps>(
     );
   }
 );
+
+NewCardButton.displayName = "CardSection.NewCardButton";

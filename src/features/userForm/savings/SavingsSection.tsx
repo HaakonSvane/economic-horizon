@@ -1,4 +1,4 @@
-import { NewItemButton } from "@/components/NewItemButton";
+import { CardSection } from "@/components/CardSection";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,7 +10,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
 import {
   DrawerDialog,
   DrawerDialogContent,
@@ -20,19 +19,18 @@ import {
 } from "@/components/ui/drawerDialog";
 import {
   DropdownMenu,
+  DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  DropdownMenuContent,
 } from "@/components/ui/dropdown-menu";
 import { useStore } from "@/lib/store";
-import { CirclePlus, Trash } from "lucide-react";
 import { useState } from "react";
-import { FundSchema, SavingsAccountSchema } from "./types";
 import { FundForm } from "./FundForm";
 import { SavingsAccountForm } from "./SavingsAccountForm";
 import { SavingsGrid } from "./SavingsGrid";
+import { FundSchema, SavingsAccountSchema } from "./types";
 
 export const SavingsSection = () => {
   const savings = useStore((state) => state.savings);
@@ -62,30 +60,23 @@ export const SavingsSection = () => {
         >
           <DropdownMenu>
             <div className="flex grow flex-col gap-y-2">
-              <div className="flex flex-row justify-between">
-                <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-                  Sparing
-                </h3>
+              <CardSection.Header>
+                <CardSection.Title>Sparing</CardSection.Title>
                 {savings.length > 0 && (
                   <div className="flex items-center gap-x-2">
                     <DropdownMenuTrigger asChild>
-                      <Button variant="outline">
-                        <CirclePlus />
-                      </Button>
+                      <CardSection.AddButton />
                     </DropdownMenuTrigger>
 
                     <AlertDialogTrigger asChild>
-                      <Button variant="destructive" className="flex gap-x-2">
-                        <Trash />
-                        Slett alle
-                      </Button>
+                      <CardSection.ClearAllButton />
                     </AlertDialogTrigger>
                   </div>
                 )}
-              </div>
+              </CardSection.Header>
               {savings.length === 0 && (
                 <DropdownMenuTrigger asChild>
-                  <NewItemButton title="Legg til ny sparing" />
+                  <CardSection.NewCardButton title="Legg til ny sparing" />
                 </DropdownMenuTrigger>
               )}
               {savings.length > 0 && <SavingsGrid />}
