@@ -1,16 +1,43 @@
 import { CardSection } from "@/components/CardSection";
-import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import {
   DrawerDialog,
+  DrawerDialogContent,
+  DrawerDialogDescription,
+  DrawerDialogHeader,
+  DrawerDialogTitle,
   DrawerDialogTrigger,
 } from "@/components/ui/drawerDialog";
 import { useStore } from "@/lib/store";
 import { useState } from "react";
+import { TransactionsGrid } from "./TransactionsGrid";
+import { TransactionForm } from "./TransactionForm";
+import { TransactionSchema } from "./types";
 
-export const TransactionSection = () => {
+export const TransactionsSection = () => {
   const transactions = useStore((state) => state.transactions);
+  const addTransactionToStore = useStore((store) => store.addTransaction);
+  const clearAllTransactions = useStore((store) => store.clearAllTransactions);
+
   const [isAddingTransaction, setIsAddingTransaction] =
     useState<boolean>(false);
+
+  const addTransaction = (transactionForm: TransactionSchema) => {
+    addTransactionToStore({
+      ...transactionForm,
+      date: transactionForm.date.toISOString(),
+    });
+  };
   return (
     <AlertDialog>
       <DrawerDialog
@@ -37,17 +64,18 @@ export const TransactionSection = () => {
               <CardSection.NewCardButton title="Legg til nytt lån" />
             </DrawerDialogTrigger>
           )}
-          {transactions.length > 0 && <LoansGrid />}
+          {transactions.length > 0 && <TransactionsGrid />}
         </div>
 
         <DrawerDialogContent>
           <DrawerDialogHeader>
             <DrawerDialogTitle>Nytt lån</DrawerDialogTitle>
             <DrawerDialogDescription>
-              Fyll ut informasjonen på denne siden for å legge til et nytt lån.
+              Fyll ut informasjonen på denne siden for å legge til et nytt uttak
+              / lån.
             </DrawerDialogDescription>
           </DrawerDialogHeader>
-          <LoanForm onValidSubmit={addLoan} />
+          <TransactionForm onValidSubmit={addTransaction} />
         </DrawerDialogContent>
       </DrawerDialog>
 
@@ -61,7 +89,9 @@ export const TransactionSection = () => {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Nei</AlertDialogCancel>
-          <AlertDialogAction onClick={clearAllLoans}>Ja</AlertDialogAction>
+          <AlertDialogAction onClick={clearAllTransactions}>
+            Ja
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
