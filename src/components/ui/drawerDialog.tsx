@@ -37,10 +37,10 @@ interface DrawerDialogProps extends BaseProps {
   asChild?: true;
 }
 
-const desktop = "(min-width: 768px)";
+const desktopMediaQuery = "(min-width: 768px)";
 
 const DrawerDialog = ({ children, ...props }: RootDrawerDialogProps) => {
-  const isDesktop = useMediaQuery(desktop);
+  const isDesktop = useMediaQuery(desktopMediaQuery);
   const DrawerDialog = isDesktop ? Dialog : Drawer;
 
   return <DrawerDialog {...props}>{children}</DrawerDialog>;
@@ -51,7 +51,7 @@ const DrawerDialogTrigger = ({
   children,
   ...props
 }: DrawerDialogProps) => {
-  const isDesktop = useMediaQuery(desktop);
+  const isDesktop = useMediaQuery(desktopMediaQuery);
   const DrawerDialogTrigger = isDesktop ? DialogTrigger : DrawerTrigger;
 
   return (
@@ -66,7 +66,7 @@ const DrawerDialogClose = ({
   children,
   ...props
 }: DrawerDialogProps) => {
-  const isDesktop = useMediaQuery(desktop);
+  const isDesktop = useMediaQuery(desktopMediaQuery);
   const DrawerDialogClose = isDesktop ? DialogClose : DrawerClose;
 
   return (
@@ -81,7 +81,7 @@ const DrawerDialogContent = ({
   children,
   ...props
 }: DrawerDialogProps) => {
-  const isDesktop = useMediaQuery(desktop);
+  const isDesktop = useMediaQuery(desktopMediaQuery);
   const DrawerDialogContent = isDesktop ? DialogContent : DrawerContent;
 
   return (
@@ -96,7 +96,7 @@ const DrawerDialogDescription = ({
   children,
   ...props
 }: DrawerDialogProps) => {
-  const isDesktop = useMediaQuery(desktop);
+  const isDesktop = useMediaQuery(desktopMediaQuery);
   const DrawerDialogDescription = isDesktop
     ? DialogDescription
     : DrawerDescription;
@@ -113,7 +113,7 @@ const DrawerDialogHeader = ({
   children,
   ...props
 }: DrawerDialogProps) => {
-  const isDesktop = useMediaQuery(desktop);
+  const isDesktop = useMediaQuery(desktopMediaQuery);
   const DrawerDialogHeader = isDesktop ? DialogHeader : DrawerHeader;
 
   return (
@@ -128,7 +128,7 @@ const DrawerDialogTitle = ({
   children,
   ...props
 }: DrawerDialogProps) => {
-  const isDesktop = useMediaQuery(desktop);
+  const isDesktop = useMediaQuery(desktopMediaQuery);
   const DrawerDialogTitle = isDesktop ? DialogTitle : DrawerTitle;
 
   return (
@@ -155,7 +155,7 @@ const DrawerDialogFooter = ({
   children,
   ...props
 }: DrawerDialogProps) => {
-  const isDesktop = useMediaQuery(desktop);
+  const isDesktop = useMediaQuery(desktopMediaQuery);
   const DrawerDialogFooter = isDesktop ? DialogFooter : DrawerFooter;
 
   return (

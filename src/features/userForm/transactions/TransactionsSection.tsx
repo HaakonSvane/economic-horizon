@@ -21,10 +21,12 @@ import {
 import { useStore } from "@/lib/store";
 import { useState } from "react";
 import { TransactionsGrid } from "./TransactionsGrid";
-import { TransactionForm } from "./TransactionForm";
+import { TransactionForm } from "./TransactionForm/TransactionForm";
 import { TransactionSchema } from "./types";
 
 export const TransactionsSection = () => {
+  const savings = useStore((state) => state.savings);
+  const loans = useStore((state) => state.loans);
   const transactions = useStore((state) => state.transactions);
   const addTransactionToStore = useStore((store) => store.addTransaction);
   const clearAllTransactions = useStore((store) => store.clearAllTransactions);
@@ -33,11 +35,9 @@ export const TransactionsSection = () => {
     useState<boolean>(false);
 
   const addTransaction = (transactionForm: TransactionSchema) => {
-    addTransactionToStore({
-      ...transactionForm,
-      date: transactionForm.date.toISOString(),
-    });
+    addTransactionToStore(transactionForm);
   };
+
   return (
     <AlertDialog>
       <DrawerDialog
@@ -46,7 +46,7 @@ export const TransactionsSection = () => {
       >
         <div className="flex grow flex-col gap-y-2">
           <CardSection.Header>
-            <CardSection.Title>Innskudd / Uttak</CardSection.Title>
+            <CardSection.Title>Innskudd & Uttak</CardSection.Title>
             {transactions.length > 0 && (
               <div className="flex items-center gap-x-2">
                 <DrawerDialogTrigger asChild>
@@ -61,7 +61,10 @@ export const TransactionsSection = () => {
 
           {transactions.length === 0 && (
             <DrawerDialogTrigger asChild>
-              <CardSection.NewCardButton title="Legg til nytt lån" />
+              <CardSection.NewCardButton
+                disabled={savings.length === 0 && loans.length === 0}
+                title="Legg til nytt innskudd eller uttak"
+              />
             </DrawerDialogTrigger>
           )}
           {transactions.length > 0 && <TransactionsGrid />}
@@ -69,10 +72,10 @@ export const TransactionsSection = () => {
 
         <DrawerDialogContent>
           <DrawerDialogHeader>
-            <DrawerDialogTitle>Nytt lån</DrawerDialogTitle>
+            <DrawerDialogTitle>Nytt uttak / innskudd</DrawerDialogTitle>
             <DrawerDialogDescription>
               Fyll ut informasjonen på denne siden for å legge til et nytt uttak
-              / lån.
+              / innskudd.
             </DrawerDialogDescription>
           </DrawerDialogHeader>
           <TransactionForm onValidSubmit={addTransaction} />
@@ -81,10 +84,10 @@ export const TransactionsSection = () => {
 
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Slette alle lån?</AlertDialogTitle>
+          <AlertDialogTitle>Slette alle innskudd og uttak?</AlertDialogTitle>
           <AlertDialogDescription>
-            Er du sikker på at du ønsker å slette alle lånene dine? Denne
-            operasjonen kan ikke angres.
+            Er du sikker på at du ønsker å slette alle inskuddene og uttakene
+            dine? Denne operasjonen kan ikke angres.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

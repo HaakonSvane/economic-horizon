@@ -1,6 +1,6 @@
 import { HandCoins } from "lucide-react";
 
-export const Header = () => (
+export const SiteHeader = () => (
   <div className="flex flex-row gap-x-4 items-center">
     <HandCoins className="size-10 lg:size-12" />
     <div className="flex-col">

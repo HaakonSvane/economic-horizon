@@ -252,7 +252,6 @@ export const LoanForm = ({ onValidSubmit }: LoanFormProps) => {
             </FormItem>
           )}
         />
-
         <DrawerDialogFooter>
           <DrawerDialogClose asChild>
             <Button variant="outline">Lukk</Button>

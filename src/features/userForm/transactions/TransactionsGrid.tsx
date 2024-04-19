@@ -4,9 +4,11 @@ import { TransactionCard } from "./TransactionCard";
 
 export const TransactionsGrid = () => {
   const transactions = useStore((state) => state.transactions);
-  <CardGrid>
-    {transactions.map((transaction) => (
-      <TransactionCard transaction={transaction} key={transaction.id} />
-    ))}
-  </CardGrid>;
+  return (
+    <CardGrid>
+      {transactions.map((transaction) => (
+        <TransactionCard transaction={transaction} key={transaction.id} />
+      ))}
+    </CardGrid>
+  );
 };
