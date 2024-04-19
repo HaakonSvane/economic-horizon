@@ -23,6 +23,12 @@ import { useState } from "react";
 import { TransactionsGrid } from "./TransactionsGrid";
 import { TransactionForm } from "./TransactionForm/TransactionForm";
 import { TransactionSchema } from "./types";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export const TransactionsSection = () => {
   const savings = useStore((state) => state.savings);
@@ -37,6 +43,17 @@ export const TransactionsSection = () => {
   const addTransaction = (transactionForm: TransactionSchema) => {
     addTransactionToStore(transactionForm);
   };
+  const disabled = savings.length === 0 && loans.length === 0;
+
+  const renderNewCardButton = () => (
+    <DrawerDialogTrigger asChild>
+      <CardSection.NewCardButton
+        className={disabled ? "flex flex-1" : undefined}
+        disabled={savings.length === 0 && loans.length === 0}
+        title="Legg til nytt innskudd eller uttak"
+      />
+    </DrawerDialogTrigger>
+  );
 
   return (
     <AlertDialog>
@@ -59,14 +76,24 @@ export const TransactionsSection = () => {
             )}
           </CardSection.Header>
 
-          {transactions.length === 0 && (
-            <DrawerDialogTrigger asChild>
-              <CardSection.NewCardButton
-                disabled={savings.length === 0 && loans.length === 0}
-                title="Legg til nytt innskudd eller uttak"
-              />
-            </DrawerDialogTrigger>
-          )}
+          {transactions.length === 0 &&
+            (disabled ? (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span tabIndex={0} className="flex flex-1">
+                      {renderNewCardButton()}
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    Du må legge til en sparekonto eller et lån for å kunne legge
+                    til et innskudd eller uttak.
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            ) : (
+              renderNewCardButton()
+            ))}
           {transactions.length > 0 && <TransactionsGrid />}
         </div>
 
