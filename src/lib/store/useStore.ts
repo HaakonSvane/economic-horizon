@@ -46,13 +46,14 @@ export const useStore = create<Store>()(
       clearAllLoans: () => set({ loans: [] }),
 
       transactions: [],
-      addTransaction: (transactionPayload) =>
-        set({
+      addTransaction: (transactionPayload) => {
+        return set({
           transactions: [
             ...get().transactions,
             { ...transactionPayload, id: nanoid(4) },
           ],
-        }),
+        });
+      },
       removeTransaction: (id) =>
         set({
           transactions: get().transactions.filter(

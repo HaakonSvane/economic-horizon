@@ -29,6 +29,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { AddTransactionPayload } from "@/lib/store/types";
 
 export const TransactionsSection = () => {
   const savings = useStore((state) => state.savings);
@@ -42,7 +43,21 @@ export const TransactionsSection = () => {
 
   const addTransaction = (transactionForm: TransactionSchema) => {
     setIsAddingTransaction(false);
-    addTransactionToStore(transactionForm);
+    const accountId = {
+      loanId:
+        "loanId" in transactionForm.accountId
+          ? transactionForm.accountId.loanId
+          : null,
+      savingsId:
+        "savingsId" in transactionForm.accountId
+          ? transactionForm.accountId.savingsId
+          : null,
+    } as unknown as AddTransactionPayload["accountId"];
+
+    addTransactionToStore({
+      ...transactionForm,
+      accountId,
+    } as unknown as AddTransactionPayload);
   };
   const disabled = savings.length === 0 && loans.length === 0;
 

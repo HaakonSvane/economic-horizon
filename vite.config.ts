@@ -14,4 +14,18 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          clsx: ["clsx"],
+          react: ["react"],
+          zod: ["zod"],
+          rhf: ["react-hook-form"],
+          reactDom: ["react-dom"],
+          tw: ["tailwind-merge"],
+        },
+      },
+    },
+  },
 });

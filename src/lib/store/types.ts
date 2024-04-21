@@ -1,5 +1,6 @@
 import { Fund, Saving, Loan, SavingsAccount } from "@/types";
 import { Transaction } from "@/types";
+import { ProperOmit } from "@/types/utils";
 
 type BaseInfo = {
   salary: number;
@@ -27,7 +28,10 @@ export type Store = {
   clearAllTransactions: () => void;
 };
 
-export type AddLoanPayload = Omit<Loan, "id">;
-export type AddFundPayload = Omit<Fund, "id" | "type">;
-export type AddSavingsAccountPayload = Omit<SavingsAccount, "id" | "type">;
-export type AddTransactionPayload = Omit<Transaction, "id">;
+export type AddLoanPayload = ProperOmit<Loan, "id">;
+export type AddFundPayload = ProperOmit<Fund, "id" | "type">;
+export type AddSavingsAccountPayload = ProperOmit<
+  SavingsAccount,
+  "id" | "type"
+>;
+export type AddTransactionPayload = ProperOmit<Transaction, "id">;

@@ -1,7 +1,7 @@
-import { Transaction } from "@/types";
+import { TransactionInterval } from "@/types";
 
 export const transactionIntervalPeriodToLabel = (
-  option: NonNullable<Transaction["interval"]>["period"]
+  option: TransactionInterval["period"]
 ) => {
   switch (option) {
     case "days":
