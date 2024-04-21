@@ -1,8 +1,10 @@
-import { InputHTMLAttributes, forwardRef } from "react";
-import { NumericFormat } from "react-number-format";
+import { forwardRef } from "react";
+import { NumericFormat, NumericFormatProps } from "react-number-format";
 import { Input } from "./ui/input";
 
-export type PercentageInputProps = InputHTMLAttributes<HTMLInputElement>;
+export type PercentageInputProps = Omit<NumericFormatProps, "onChange"> & {
+  onChange?: (value: string) => void;
+};
 
 export const PercentageInput = forwardRef<
   HTMLInputElement,

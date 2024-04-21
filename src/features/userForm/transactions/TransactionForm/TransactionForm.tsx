@@ -12,12 +12,15 @@ import { transactionSchema } from "../transactionSchema";
 import { TransactionSchema } from "../types";
 import { DepositFormSheet } from "./DepositFormSheet";
 import { WithdrawalFormSheet } from "./WithdrawalFormSheet";
+import { useStore } from "@/lib/store";
 
 export type TransactionFormProps = {
   onValidSubmit: (data: TransactionSchema) => void;
 };
 
 export const TransactionForm = ({ onValidSubmit }: TransactionFormProps) => {
+  const { savings } = useStore();
+
   const form = useForm<
     EmptyFormFields<TransactionSchema>,
     unknown,
@@ -26,13 +29,16 @@ export const TransactionForm = ({ onValidSubmit }: TransactionFormProps) => {
     resolver: zodResolver(transactionSchema),
     defaultValues: {
       type: "deposit",
+      paymentFrequency: "once",
       name: "",
       amount: "",
-      savingsId: "",
+      accountId: {
+        savingsId: "",
+        loanId: "",
+      },
       on: null,
     },
   });
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onValidSubmit)}>
@@ -50,7 +56,9 @@ export const TransactionForm = ({ onValidSubmit }: TransactionFormProps) => {
                 >
                   <TabsList>
                     <TabsTrigger value="deposit">Innskudd</TabsTrigger>
-                    <TabsTrigger value="withdrawal">Uttak</TabsTrigger>
+                    <TabsTrigger disabled={!savings.length} value="withdrawal">
+                      Uttak
+                    </TabsTrigger>
                   </TabsList>
                   <TabsContent
                     value="deposit"

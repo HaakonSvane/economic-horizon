@@ -41,6 +41,7 @@ export const TransactionsSection = () => {
     useState<boolean>(false);
 
   const addTransaction = (transactionForm: TransactionSchema) => {
+    setIsAddingTransaction(false);
     addTransactionToStore(transactionForm);
   };
   const disabled = savings.length === 0 && loans.length === 0;

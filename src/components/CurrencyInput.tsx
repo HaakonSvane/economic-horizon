@@ -1,8 +1,10 @@
-import { InputHTMLAttributes, forwardRef } from "react";
-import { NumericFormat } from "react-number-format";
+import { forwardRef } from "react";
+import { NumericFormat, NumericFormatProps } from "react-number-format";
 import { Input } from "./ui/input";
 
-export type CurrencyInputProps = InputHTMLAttributes<HTMLInputElement>;
+export type CurrencyInputProps = Omit<NumericFormatProps, "onChange"> & {
+  onChange?: (value: string) => void;
+};
 
 export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
   (props, ref) => {

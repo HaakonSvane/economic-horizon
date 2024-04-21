@@ -8,15 +8,30 @@ import { z } from "zod";
 
 const withdrawalBaseSchema = z.object({
   type: z.literal("withdrawal"),
-  savingsId: z
-    .string({ required_error: requiredError })
-    .min(1, invalidStringLengthError),
+  accountId: z.object({
+    savingsId: z
+      .string({ required_error: requiredError })
+      .min(1, invalidStringLengthError),
+  }),
 });
 
 const depositBaseSchema = z.object({
   type: z.literal("deposit"),
-  savingsId: z.string().min(1, invalidStringLengthError).nullable(),
-  loanId: z.string().min(1, invalidStringLengthError).nullable(),
+  accountId: z.union(
+    [
+      z.object({
+        loanId: z
+          .string({ required_error: requiredError })
+          .min(1, invalidStringLengthError),
+      }),
+      z.object({
+        savingsId: z
+          .string({ required_error: requiredError })
+          .min(1, invalidStringLengthError),
+      }),
+    ],
+    { required_error: requiredError }
+  ),
 });
 
 const withdrawalDepositBaseSchema = z.discriminatedUnion("type", [
@@ -62,10 +77,4 @@ const transactionBaseSchema = z.object({
 
 export const transactionSchema = withdrawalDepositBaseSchema
   .and(paymentFrequencyBase)
-  .and(transactionBaseSchema)
-  .refine((data) => {
-    if (data.type === "withdrawal") {
-      return true;
-    }
-    return data.savingsId !== null || data.loanId !== null;
-  }, "Either savingsId or loanId must be provided when type is deposit");
+  .and(transactionBaseSchema);

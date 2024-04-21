@@ -1,7 +1,6 @@
-import { UseFormReturn, useWatch } from "react-hook-form";
-import { usePeriodicValues } from "./usePeriodicValues";
-import { EmptyFormFields, cn } from "@/lib/utils";
-import { TransactionSchema } from "../types";
+import { CurrencyInput } from "@/components/CurrencyInput";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   FormControl,
   FormField,
@@ -9,8 +8,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@radix-ui/react-label";
+import { Input } from "@/components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   Select,
   SelectContent,
@@ -18,20 +21,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import { SavingsTypeDisplay } from "@/features/userForm/savings/SavingsTypeDisplay";
+import { useStore } from "@/lib/store";
+import { EmptyFormFields, cn } from "@/lib/utils";
+import { Label } from "@radix-ui/react-label";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
-import { transactionIntervalPeriodToLabel } from "../utils";
-import { Input } from "@/components/ui/input";
-import { CurrencyInput } from "@/components/CurrencyInput";
 import { useEffect } from "react";
-import { useStore } from "@/lib/store";
+import { UseFormReturn, useWatch } from "react-hook-form";
+import { TransactionSchema } from "../types";
+import { transactionIntervalPeriodToLabel } from "../utils";
+import { usePeriodicValues } from "./usePeriodicValues";
 
 export type WithdrawalFormSheetProps = {
   form: UseFormReturn<
@@ -52,7 +53,6 @@ export const WithdrawalFormSheet = ({ form }: WithdrawalFormSheetProps) => {
 
   useEffect(() => {
     if (paymentFrequency === "recurring") {
-      console.log("setting values");
       form.setValue("interval", {
         every: "",
         period: "months",
@@ -94,6 +94,45 @@ export const WithdrawalFormSheet = ({ form }: WithdrawalFormSheetProps) => {
               />
             </FormControl>
             <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        name="accountId"
+        control={form.control}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Hvor tar du pengene ut fra?</FormLabel>
+            <FormControl>
+              <Select
+                onValueChange={(value) => {
+                  const obj = JSON.parse(value);
+                  if (typeof obj === "object") {
+                    return field.onChange(obj);
+                  }
+                  return field.onChange(value);
+                }}
+                value={
+                  typeof field.value === "object"
+                    ? JSON.stringify(field.value)
+                    : ""
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Velg sparekonto eller fond..." />
+                </SelectTrigger>
+                <SelectContent>
+                  {savings.map((savings) => (
+                    <SelectItem
+                      key={savings.id}
+                      value={JSON.stringify({ savingsId: savings.id })}
+                    >
+                      <SavingsTypeDisplay saving={savings} />
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </FormControl>
           </FormItem>
         )}
       />

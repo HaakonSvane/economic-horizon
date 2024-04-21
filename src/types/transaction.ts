@@ -1,4 +1,4 @@
-import { Either } from "./utils";
+import { NullableEither } from "./utils";
 
 type BaseTransaction = {
   id: string;
@@ -25,12 +25,16 @@ type TransactionFrequency =
 export type Withdrawal = BaseTransaction &
   TransactionFrequency & {
     type: "withdrawal";
+    accountId: {
+      savingsId: string;
+    };
     savingsId: string;
   };
 
 export type Deposit = BaseTransaction &
   TransactionFrequency & {
     type: "deposit";
-  } & Either<{ savingsId: string }, { loanId: string }>;
+    accountId: NullableEither<{ savingsId: string }, { loanId: string }>;
+  };
 
 export type Transaction = Withdrawal | Deposit;
