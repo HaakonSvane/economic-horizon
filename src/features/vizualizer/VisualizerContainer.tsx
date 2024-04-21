@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { HTMLAttributes } from "react";
+import { StackedAreaGraph } from "./overview/StackedAreaGraph";
 
 type VisualizerContainerProps = HTMLAttributes<HTMLDivElement>;
 
@@ -17,7 +18,7 @@ export const VisualizerContainer = ({ ...props }: VisualizerContainerProps) => {
         <CardDescription>This is the visualizer</CardDescription>
       </CardHeader>
       <CardContent>
-        <p>this is the content</p>
+        <StackedAreaGraph />
       </CardContent>
     </Card>
   );

@@ -85,7 +85,7 @@ const DrawerDialogContent = ({
   const DrawerDialogContent = isDesktop ? DialogContent : DrawerContent;
 
   return (
-    <DrawerDialogContent className={className} {...props}>
+    <DrawerDialogContent className={cn("max-h-[85vh]", className)} {...props}>
       {children}
     </DrawerDialogContent>
   );
