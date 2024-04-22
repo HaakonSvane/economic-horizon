@@ -17,7 +17,9 @@ export const VisualizerContainer = ({ ...props }: VisualizerContainerProps) => {
         <CardTitle>Visualizer</CardTitle>
         <CardDescription>This is the visualizer</CardDescription>
       </CardHeader>
-      <CardContent>{/* <StackedAreaGraph /> */}</CardContent>
+      <CardContent>
+        <StackedAreaGraph />
+      </CardContent>
     </Card>
   );
 };
