@@ -1,8 +1,8 @@
 import { useStore } from "@/lib/store";
-import { AddFundPayload } from "@/lib/store/types";
 import { act, render, renderHook } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { TransactionsSection } from "../TransactionsSection";
+import { AddSavingPayload } from "@/lib/store/savings";
 
 describe("TransactionSection", () => {
   it("should be disabled when there are no loans or savings", () => {
@@ -27,7 +27,8 @@ describe("TransactionSection", () => {
     const { getByRole } = render(<TransactionsSection />);
     const button = getByRole("button") as HTMLButtonElement;
 
-    const savingsPayload: AddFundPayload = {
+    const savingsPayload: AddSavingPayload = {
+      type: "fund",
       name: "test savings",
       balance: 1000,
       investedAmount: 500,
@@ -36,11 +37,11 @@ describe("TransactionSection", () => {
     };
 
     const { result: addSavingsHook } = renderHook(useStore, {
-      initialProps: (state) => state.addFund,
+      initialProps: (state) => state.addSaving,
     });
 
     act(() =>
-      (addSavingsHook.current as (payload: AddFundPayload) => void)(
+      (addSavingsHook.current as (payload: AddSavingPayload) => void)(
         savingsPayload
       )
     );

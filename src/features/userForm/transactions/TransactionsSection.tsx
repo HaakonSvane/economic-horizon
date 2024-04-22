@@ -29,7 +29,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { AddTransactionPayload } from "@/lib/store/types";
+import { AddTransactionPayload } from "@/lib/store/transactions";
 
 export const TransactionsSection = () => {
   const savings = useStore((state) => state.savings);

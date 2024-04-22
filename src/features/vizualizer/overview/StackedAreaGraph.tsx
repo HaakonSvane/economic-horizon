@@ -1,5 +1,5 @@
 import { DynamicSVG, useDynamicSVG } from "../DynamicSVG";
-import { d3 } from "d3";
+import * as d3 from "d3";
 
 export const StackedAreaGraph = () => {
   return (
@@ -11,7 +11,9 @@ export const StackedAreaGraph = () => {
 
 const StackedAreaGraphContent = () => {
   const { width, height } = useDynamicSVG();
-  const test = d3.return(
+  const test = d3.stack().keys(["apples", "bananas", "cherries", "dates"]);
+
+  return (
     <>
       <rect
         x={0}

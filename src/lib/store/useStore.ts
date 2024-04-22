@@ -1,66 +1,18 @@
-import { nanoid } from "nanoid";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
+import { createBaseInfoSlice } from "./baseInfo";
 import { Store } from "./types";
+import { createLoansSlice } from "./loans";
+import { createSavingsSlice } from "./savings";
+import { createTransactionsSlice } from "./transactions";
 
 export const useStore = create<Store>()(
   persist(
-    (set, get) => ({
-      baseInfo: null,
-      setBaseInfo: (baseInfo) => set({ baseInfo }),
-
-      savings: [],
-      addFund: (fundPayload) =>
-        set({
-          savings: [
-            ...get().savings,
-            { ...fundPayload, id: nanoid(4), type: "fund" },
-          ],
-        }),
-
-      addSavingsAccount: (savingsAccountPayload) =>
-        set({
-          savings: [
-            ...get().savings,
-            { ...savingsAccountPayload, id: nanoid(4), type: "savingsAccount" },
-          ],
-        }),
-
-      removeSaving: (id) =>
-        set({
-          savings: get().savings.filter((investment) => investment.id !== id),
-        }),
-      clearAllSavings: () => set({ savings: [] }),
-
-      loans: [],
-      addLoan: (loanPayload) =>
-        set({
-          loans: [...get().loans, { ...loanPayload, id: nanoid(4) }],
-        }),
-
-      removeLoan: (id) =>
-        set({
-          loans: get().loans.filter((loan) => loan.id !== id),
-        }),
-
-      clearAllLoans: () => set({ loans: [] }),
-
-      transactions: [],
-      addTransaction: (transactionPayload) => {
-        return set({
-          transactions: [
-            ...get().transactions,
-            { ...transactionPayload, id: nanoid(4) },
-          ],
-        });
-      },
-      removeTransaction: (id) =>
-        set({
-          transactions: get().transactions.filter(
-            (transaction) => transaction.id !== id
-          ),
-        }),
-      clearAllTransactions: () => set({ transactions: [] }),
+    (...a) => ({
+      ...createBaseInfoSlice(...a),
+      ...createLoansSlice(...a),
+      ...createSavingsSlice(...a),
+      ...createTransactionsSlice(...a),
     }),
     {
       name: "store",

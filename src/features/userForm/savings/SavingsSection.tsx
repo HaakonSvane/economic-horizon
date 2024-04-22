@@ -34,8 +34,7 @@ import { FundSchema, SavingsAccountSchema } from "./types";
 
 export const SavingsSection = () => {
   const savings = useStore((state) => state.savings);
-  const addFundToStore = useStore((store) => store.addFund);
-  const addSavingsAccountToStore = useStore((store) => store.addSavingsAccount);
+  const addSavingToStore = useStore((store) => store.addSaving);
   const clearAllSavings = useStore((store) => store.clearAllSavings);
   const [isAddingNewFund, setIsAddingNewFund] = useState<boolean>(false);
   const [isAddingNewSavingsAccount, setIsAddingNewSavingsAccount] =
@@ -43,12 +42,12 @@ export const SavingsSection = () => {
 
   const addFund = (fundForm: FundSchema) => {
     setIsAddingNewFund(false);
-    addFundToStore(fundForm);
+    addSavingToStore({ ...fundForm, type: "fund" });
   };
 
   const addSavingsAccount = (savingsAccountForm: SavingsAccountSchema) => {
     setIsAddingNewSavingsAccount(false);
-    addSavingsAccountToStore(savingsAccountForm);
+    addSavingToStore({ ...savingsAccountForm, type: "savingsAccount" });
   };
 
   return (
