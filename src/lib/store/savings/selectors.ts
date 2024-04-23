@@ -1,8 +1,8 @@
 import { projectFund } from "@/lib/finance";
-import { SavingReturnSample } from "@/lib/finance/types";
 import { createAppSelector } from "@/lib/utils";
 import { Saving } from "@/types";
 import { createSelector } from "reselect";
+import { ProjectedSaving } from "./types";
 
 const makeProjectedSavingSelector = () =>
   createSelector(
@@ -17,8 +17,6 @@ const makeProjectedSavingSelector = () =>
       return null;
     }
   );
-
-export type ProjectedSaving = SavingReturnSample & { id: string };
 
 export const selectAllProjectedSavings = createAppSelector(
   [

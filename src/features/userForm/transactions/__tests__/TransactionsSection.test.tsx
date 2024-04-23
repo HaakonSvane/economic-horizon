@@ -32,6 +32,7 @@ describe("TransactionSection", () => {
       name: "test savings",
       balance: 1000,
       investedAmount: 500,
+      totalWithdrawn: 200,
       ratePeriod: "yearly",
       projectedInterestRate: 2.3,
     };
