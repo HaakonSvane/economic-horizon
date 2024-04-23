@@ -8,8 +8,8 @@ const makeProjectedSavingSelector = () =>
   createSelector(
     [
       (saving: Saving) => saving,
-      (saving: Saving, fromDate: Date) => fromDate,
-      (saving: Saving, fromDate: Date, toDate: Date) => toDate,
+      (_: Saving, fromDate: Date) => fromDate,
+      (_: Saving, __: Date, toDate: Date) => toDate,
     ],
     (saving, fromDate, toDate) => {
       if (saving.type === "fund")
@@ -21,8 +21,8 @@ const makeProjectedSavingSelector = () =>
 export const selectAllProjectedSavings = createAppSelector(
   [
     (state) => state.savings,
-    (state, fromDate: Date) => fromDate,
-    (state, fromDate: Date, toDate: Date) => toDate,
+    (_, fromDate: Date) => fromDate,
+    (_, __: Date, toDate: Date) => toDate,
   ],
   (savings, fromDate, toDate) => {
     const projectionSelectors = savings.reduce(
