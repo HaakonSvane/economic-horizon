@@ -10,6 +10,12 @@ import {
 export const fundSchema = z.intersection(
   baseSavingsSchema,
   z.object({
+    totalWithdrawn: z.coerce
+      .number({
+        invalid_type_error: badNumberFormatError,
+        required_error: requiredError,
+      })
+      .positive(positiveNumberError),
     projectedInterestRate: z.coerce
       .number({
         invalid_type_error: badNumberFormatError,

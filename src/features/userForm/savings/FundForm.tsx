@@ -33,6 +33,7 @@ export const FundForm = ({ onValidSubmit }: FundFormProps) => {
       name: "",
       balance: "",
       investedAmount: "",
+      totalWithdrawn: "",
       ratePeriod: "",
       projectedInterestRate: "",
     },
@@ -74,23 +75,40 @@ export const FundForm = ({ onValidSubmit }: FundFormProps) => {
             </FormItem>
           )}
         />
-
-        <FormField
-          name="investedAmount"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Totalt investert</FormLabel>
-              <FormControl>
-                <CurrencyInput
-                  placeholder="Penger investert totalt..."
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="grid grid-cols-2 gap-x-2">
+          <FormField
+            name="investedAmount"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Totalt investert</FormLabel>
+                <FormControl>
+                  <CurrencyInput
+                    placeholder="Penger investert totalt..."
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            name="totalWithdrawn"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Totalt tatt ut fra fondet</FormLabel>
+                <FormControl>
+                  <CurrencyInput
+                    placeholder="Penger tatt ut totalt..."
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         <div className="grid grid-cols-2 gap-x-2 items-center">
           <FormField

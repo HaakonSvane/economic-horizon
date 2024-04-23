@@ -8,6 +8,7 @@ type SavingBase = {
 
 export type Fund = SavingBase & {
   type: "fund";
+  totalWithdrawn: number;
   projectedInterestRate: number;
 };
 
