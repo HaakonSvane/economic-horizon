@@ -16,6 +16,7 @@ export const savingsAccountSchema = z.intersection(
         required_error: requiredError,
       })
       .positive(positiveNumberError)
-      .max(100, invalidPercentageError),
+      .max(100, invalidPercentageError)
+      .transform((val) => val / 100),
   })
 );

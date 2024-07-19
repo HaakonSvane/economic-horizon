@@ -42,7 +42,7 @@ export const SavingsSection = () => {
 
   const addFund = (fundForm: FundSchema) => {
     setIsAddingNewFund(false);
-    addSavingToStore({ ...fundForm, type: "fund" });
+    addSavingToStore({ ...fundForm, type: "fund", unusedShielding: 0 });
   };
 
   const addSavingsAccount = (savingsAccountForm: SavingsAccountSchema) => {

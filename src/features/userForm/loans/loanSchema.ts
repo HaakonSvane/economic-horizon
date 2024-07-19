@@ -31,7 +31,8 @@ export const loanSchema = z
         required_error: requiredError,
       })
       .positive(positiveNumberError)
-      .max(100, invalidPercentageError),
+      .max(100, invalidPercentageError)
+      .transform((val) => val / 100),
     paymentPlanOption: z.enum(["annuity", "series"]),
   })
   .refine(

@@ -4,7 +4,7 @@ import { interpolatedProjector, stepProjector } from "../projector";
 describe.each([
   { projector: interpolatedProjector },
   { projector: stepProjector },
-])("Generic projector ($projector.name)", ({ projector }) => {
+])("projector $projector.name", ({ projector }) => {
   it.each([
     [0.1, 1, 1.1],
     [1, 1, 2],

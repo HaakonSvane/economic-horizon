@@ -35,6 +35,7 @@ describe("TransactionSection", () => {
       totalWithdrawn: 200,
       ratePeriod: "yearly",
       projectedInterestRate: 2.3,
+      unusedShielding: 100,
     };
 
     const { result: addSavingsHook } = renderHook(useStore, {
@@ -46,6 +47,10 @@ describe("TransactionSection", () => {
         savingsPayload
       )
     );
+
+    renderHook(useStore, {
+      initialProps: (state) => state.savings,
+    });
 
     expect(button.disabled).toBeFalsy();
   });

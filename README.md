@@ -1,30 +1,17 @@
-# React + TypeScript + Vite
+# Ecomonic Horizon
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the repository for the finance-calculator named [økonomisk horisont](https://økonomiskhorisont.no).
+The calculator is based on Norwegian laws and rates, so it only applies to Norwegians.
 
-Currently, two official plugins are available:
+## What goes in to the calculations?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This section contains information about how the various types of loans, transactions and savings are calculated. It describes the system AS IS, and is therefore subject to change. No guarantees are made that the calculations reflect the actual financial outcomes due to the complexity of finance calculation the ever-changing nature of laws and rates surrounding Norwegian finance and uncertainties related to projecting into the future.
 
-## Expanding the ESLint configuration
+### Funds
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+All funds are assumed to be stock funds. This means profit is subject to shielding deduction.
+Calculating return on funds involves the following elements:
 
-- Configure the top-level `parserOptions` property like this:
+**Shielding deduction:**
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+> The app assumes all fund-savings start at todays date. This means shielding deductions for long-standing funds will be lower than in reality. For projecting fund returns into the future, the current shielding rate for 2023 is assumed (_3.2%_).

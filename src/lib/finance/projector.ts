@@ -2,6 +2,7 @@ export type ProjectorInput = {
   numSamples: number;
   startDate: Date;
   endDate: Date;
+  keyFrameDates?: Date[];
   initialBalance: number;
   rate: number;
   ratePeriodTimeMillis: number;

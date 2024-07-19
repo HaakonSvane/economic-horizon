@@ -13,7 +13,7 @@ const makeProjectedSavingSelector = () =>
     ],
     (saving, fromDate, toDate) => {
       if (saving.type === "fund")
-        return projectFund(saving, fromDate, toDate, 10);
+        return projectFund(saving, fromDate, toDate, 150);
       return null;
     }
   );
@@ -43,8 +43,14 @@ export const selectAllProjectedSavings = createAppSelector(
           toDate
         );
         return (
-          projection?.map((projection) => ({ ...projection, id: saving.id })) ??
-          []
+          projection?.map(
+            (projection) =>
+              ({
+                ...projection,
+                id: saving.id,
+                name: saving.name,
+              }) satisfies ProjectedSaving
+          ) ?? []
         );
       })
       .flat() as ProjectedSaving[];

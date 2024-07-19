@@ -3,6 +3,12 @@ export type SavingReturn = {
   tax: number;
 };
 
+export type FundReturn = {
+  netProfit: number;
+  tax: number;
+  screeningBasis: number;
+};
+
 export type SavingReturnSample = SavingReturn & {
   time: Date;
 };

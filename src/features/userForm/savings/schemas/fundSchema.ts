@@ -15,13 +15,14 @@ export const fundSchema = z.intersection(
         invalid_type_error: badNumberFormatError,
         required_error: requiredError,
       })
-      .positive(positiveNumberError),
+      .nonnegative(positiveNumberError),
     projectedInterestRate: z.coerce
       .number({
         invalid_type_error: badNumberFormatError,
         required_error: requiredError,
       })
       .positive(positiveNumberError)
-      .max(100, invalidPercentageError),
+      .max(100, invalidPercentageError)
+      .transform((val) => val / 100),
   })
 );
