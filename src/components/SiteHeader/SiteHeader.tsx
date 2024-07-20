@@ -10,6 +10,11 @@ export const SiteHeader = () => (
       <p className="text-sm text-muted-foreground">
         Et verktøy for å hjelpe deg med å urforske din økonomiske horisont
       </p>
+      <span>
+        <strong>MERKNAD!:</strong> Denne siden er enda under konstruksjon og må
+        på ingen måte benyttes som en kalkulator enda. Tilbakemeldinger ønskes
+        derimot velkommen 😎
+      </span>
     </div>
   </div>
 );
