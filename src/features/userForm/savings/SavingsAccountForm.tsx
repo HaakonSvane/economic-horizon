@@ -39,6 +39,7 @@ export const SavingsAccountForm = ({
       name: "",
       balance: "",
       investedAmount: "",
+      totalWithdrawn: "",
       ratePeriod: "",
       interestRate: "",
     },
@@ -80,23 +81,40 @@ export const SavingsAccountForm = ({
             </FormItem>
           )}
         />
-
-        <FormField
-          name="investedAmount"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Totalt investert</FormLabel>
-              <FormControl>
-                <CurrencyInput
-                  placeholder="Penger investert totalt..."
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="grid grid-cols-2 gap-x-2">
+          <FormField
+            name="investedAmount"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Totalt investert</FormLabel>
+                <FormControl>
+                  <CurrencyInput
+                    placeholder="Penger investert totalt..."
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            name="totalWithdrawn"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Totalt tatt ut fra kontoen</FormLabel>
+                <FormControl>
+                  <CurrencyInput
+                    placeholder="Penger tatt ut totalt allerede..."
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         <div className="grid grid-cols-2 gap-x-2 items-center">
           <FormField

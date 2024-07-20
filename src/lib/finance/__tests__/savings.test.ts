@@ -1,6 +1,10 @@
-import { Fund } from "@/types";
+import { Fund, SavingsAccount } from "@/types";
 import { describe, expect, it } from "vitest";
-import { calclulateFundReturn, projectFund } from "../savings";
+import {
+  calclulateFundReturn,
+  calculateSavingsAccountReturn,
+  projectFund,
+} from "../savings";
 import { addMonths, addYears } from "date-fns";
 
 describe("calculateFundReturn", () => {
@@ -119,5 +123,23 @@ describe("projectFund", () => {
     };
     const result = projectFund(fund, date, aYearAfter, 12, 0.5);
     expect(result.at(-1)?.tax).toBeCloseTo(106.921418836);
+  });
+});
+
+describe("calculateSavingsAccountReturn", () => {
+  it("Should not apply any tax", () => {
+    const savingsAccount: SavingsAccount = {
+      id: "123",
+      type: "savingsAccount",
+      name: "My test savings account",
+      interestRate: 0.1,
+      ratePeriod: "monthly",
+      balance: 100,
+      investedAmount: 100,
+      totalWithdrawn: 0,
+    };
+
+    const result = calculateSavingsAccountReturn(savingsAccount);
+    expect(result.tax).toBe(0);
   });
 });

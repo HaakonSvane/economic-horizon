@@ -1,6 +1,7 @@
 type SavingBase = {
   id: string;
   name: string;
+  totalWithdrawn: number;
   balance: number;
   investedAmount: number;
   ratePeriod: "yearly" | "monthly";
@@ -8,7 +9,6 @@ type SavingBase = {
 
 export type Fund = SavingBase & {
   type: "fund";
-  totalWithdrawn: number;
   projectedInterestRate: number;
   unusedShielding: number;
 };

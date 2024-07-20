@@ -1,4 +1,4 @@
-import { projectFund } from "@/lib/finance";
+import { projectFund, projectSavingsAccount } from "@/lib/finance";
 import { createAppSelector } from "@/lib/utils";
 import { Saving } from "@/types";
 import { createSelector } from "reselect";
@@ -14,6 +14,8 @@ const makeProjectedSavingSelector = () =>
     (saving, fromDate, toDate) => {
       if (saving.type === "fund")
         return projectFund(saving, fromDate, toDate, 150);
+      if (saving.type === "savingsAccount")
+        return projectSavingsAccount(saving, fromDate, toDate, 150);
       return null;
     }
   );

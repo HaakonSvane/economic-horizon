@@ -23,4 +23,10 @@ export const baseSavingsSchema = z.object({
     })
     .positive(positiveNumberError),
   ratePeriod: z.union([z.literal("yearly"), z.literal("monthly")]),
+  totalWithdrawn: z.coerce
+    .number({
+      invalid_type_error: badNumberFormatError,
+      required_error: requiredError,
+    })
+    .nonnegative(positiveNumberError),
 });

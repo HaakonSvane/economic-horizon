@@ -1,6 +1,6 @@
-import { Fund } from "@/types";
-import { interpolatedProjector } from "./projector";
-import { FundReturn, SavingReturnSample } from "./types";
+import { Fund, SavingsAccount } from "@/types";
+import { interpolatedProjector, stepProjector } from "./projector";
+import { FundReturn, SavingReturn, SavingReturnSample } from "./types";
 import { getAvgMillisecondsForPeriod } from "./utils";
 
 const STOCK_FUND_TAX = 0.3784 as const;
@@ -46,6 +46,43 @@ export const projectFund = (
       stockFundTax
     );
     result.push({ time, netProfit, tax });
+  }
+  return result;
+};
+
+export const calculateSavingsAccountReturn = (
+  savingsAccount: SavingsAccount
+): SavingReturn => {
+  const { investedAmount, totalWithdrawn, balance } = savingsAccount;
+  const profit = balance + totalWithdrawn - investedAmount;
+  return { netProfit: profit, tax: 0 };
+};
+
+export const projectSavingsAccount = (
+  savingsAccount: SavingsAccount,
+  fromDate: Date,
+  toDate: Date,
+  numSamples: number
+): SavingReturnSample[] => {
+  const millisInPeriod = getAvgMillisecondsForPeriod(
+    fromDate,
+    toDate,
+    savingsAccount.ratePeriod
+  );
+  const initialBalance = savingsAccount.balance;
+
+  const projectedGrowth = stepProjector({
+    numSamples,
+    startDate: fromDate,
+    endDate: toDate,
+    initialBalance,
+    rate: savingsAccount.interestRate,
+    ratePeriodTimeMillis: millisInPeriod,
+  });
+  const result: SavingReturnSample[] = [];
+  for (const keyFrame of projectedGrowth) {
+    const { time, balance } = keyFrame;
+    result.push({ time, netProfit: balance - initialBalance, tax: 0 });
   }
   return result;
 };

@@ -25,7 +25,6 @@ import { FundSchema } from "./types";
 export type FundFormProps = {
   onValidSubmit: (data: FundSchema) => void;
 };
-
 export const FundForm = ({ onValidSubmit }: FundFormProps) => {
   const form = useForm<EmptyFormFields<FundSchema>, unknown, FundSchema>({
     resolver: zodResolver(fundSchema),
@@ -100,7 +99,7 @@ export const FundForm = ({ onValidSubmit }: FundFormProps) => {
                 <FormLabel>Totalt tatt ut fra fondet</FormLabel>
                 <FormControl>
                   <CurrencyInput
-                    placeholder="Penger tatt ut totalt..."
+                    placeholder="Penger tatt ut totalt allerede..."
                     {...field}
                   />
                 </FormControl>
